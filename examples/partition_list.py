@@ -36,15 +36,14 @@ if __name__ == "__main__":
     import pyslurm
 
     try:
-        a = pyslurm.partition()
-        new_part_dict = a.get()
+        new_part_dict = pyslurm.Partitions.load().to_dict()
     except ValueError as e:
         print(f"Partition error - {e.args[0]}")
     else:
         if new_part_dict:
             display(new_part_dict)
             print()
-            print(f"Partition IDs - {a.ids()}")
+            print(f"Partition IDs - {', '.join(k for k in new_part_dict)}")
             print()
         else:
             print("No partitions found !")
